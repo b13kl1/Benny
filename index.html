@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Bayan</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #ffe6f2; /* لون زهري فاتح احتياطي */
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* إعدادات خلفية هيلو كيتي */
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4; /* شفافية الصورة عشان الكلام يبين */
+            background-position: center;
+            background-size: cover;
+            /* ضع رابط صورة هيلو كيتي هنا في الأسفل  */
+            background-image: url('https://i.pinimg.com/736x/2a/39/2d/2a392d65d956555138318bc00936353d.jpg'); 
+        }
+
+        /* حاوية القلب */
+        .heart-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            animation: pulse 1.2s infinite;
+            z-index: 10;
+        }
+
+        /* رسم القلب */
+        .heart {
+            background-color: #ff3366;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-45deg);
+            position: absolute;
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.6);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #ff3366;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 50%;
+            top: 0;
+        }
+
+        /* تنسيق اسم Bayan */
+        .name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 3rem;
+            font-family: 'Pacifico', cursive;
+            z-index: 20;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            pointer-events: none; /* عشان النبض ما يأثر عليه */
+        }
+
+        /* أنيميشن النبض */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* تنسيق كلمات I Love You المتطايرة */
+        .floating-text {
+            position: absolute;
+            color: #ff66b2;
+            font-weight: bold;
+            font-family: 'Pacifico', cursive;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-image"></div>
+
+    <div class="heart-container">
+        <div class="heart"></div>
+        <div class="name">Bayan</div>
+    </div>
+
+    <script>
+        // كود الجافا سكريبت لإنشاء كلمات I Love You بشكل مستمر
+        function createLoveText() {
+            const text = document.createElement('div');
+            text.classList.add('floating-text');
+            text.innerText = 'I Love You';
+            
+            // موقع عشوائي للنص
+            text.style.left = Math.random() * 100 + 'vw';
+            
+            // حجم عشوائي للنص
+            text.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            
+            // سرعة عشوائية للصعود
+            const duration = Math.random() * 3 + 4; // بين 4 و 7 ثواني
+            text.style.animationDuration = duration + 's';
+
+            document.body.appendChild(text);
+
+            // حذف العنصر بعد انتهاء الأنيميشن لتخفيف الحمل على المتصفح
+            setTimeout(() => {
+                text.remove();
+            }, duration * 1000);
+        }
+
+        // تكرار إنشاء النص كل 300 ميلي ثانية
+        setInterval(createLoveText, 300);
+    </script>
+
+</body>
+</html>
